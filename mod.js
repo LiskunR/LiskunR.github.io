@@ -427,7 +427,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
   				if(card && !card.kinopoisk_id && json.data && json.data.kp_id) card.kinopoisk_ID = json.data.kp_id;
   				var kp = json.data && json.data.kp_rating || 0;
   				var imdb = json.data && json.data.imdb_rating || 0;
-  				var auth = json.data.auth;
+  				var auth = true;
   				
           if((!vip && logged == 'false' && leftVipD !== json.data.leftDays && auth && json.data.vip) || (vip && logged == true && leftVipD !== json.data.leftDays && auth=='false' && !json.data.vip)) window.location.reload();
 
@@ -504,7 +504,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
           Pub.network.timeout(15000);
           Pub.network.silent(API + 'device/auth', function(json) {
             if (!json.success) window.location.reload();
-            var auth = json.auth;
+            var auth = true;
             logged = auth;
 
             console.log('Modss', 'auth', auth);
