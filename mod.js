@@ -6,7 +6,6 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 	var Protocol = function Protocol() {
 		return window.location.protocol == 'https:' ? 'https://' : 'http://';
 	}
-  console.log(Lampa.Storage())
 	var TRASH_R = ['$$$####!!!!!!!', '^^^^^^##@', '@!^^!@#@@$$$$$', '^^#@@!!@#!$', '@#!@@@##$$@@'];
 	var version_modss = '3.1', API = Protocol() + 'api.lampa.stream/', type = '', jackets = {}, cards, ping_auth, manifest, menu_list = [], vip = true, leftVipD = '', user_id = '', uid = 'dcbee9ef84465be64feb69380', IP = '128.0.82.247', logged = false;
 	console.log('App', 'protocol:', Protocol());
