@@ -66,7 +66,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
       if(!logged && vip) 
       setTimeout(function() {
         console.log(Modss.auth())
-        Modss.auth();
+        // Modss.auth();
       }, 100);
 
       if(Lampa.Storage.get('showModssVip', false) && leftVipD && vip && logged) setTimeout(function (){
