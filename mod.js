@@ -503,7 +503,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
           Pub.network.clear();
           Pub.network.timeout(15000);
           Pub.network.silent(API + 'device/auth', function(json) {
-            // if (!json.success) window.location.reload();
+            if (false) window.location.reload();
             var auth = true;
             logged = auth;
 
