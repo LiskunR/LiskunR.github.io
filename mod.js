@@ -511,14 +511,14 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
             if (auth === true || auth === 'true' && json.stop_auth === true) {
               if (json.block && json.stop_auth) {
                 logged = false;
-                Lampa.Account.logoff({email:Lampa.Storage.get('account_email')})
+                Lampa.Account.logoff({email:"vip@gmail.com"})
               }
               stopAuthInterval();
               window.location.reload();
             } else if (json.stop_auth === true) {
               if (json.block) {
                 logged = false;
-                Lampa.Account.logoff({email:Lampa.Storage.get('account_email')})
+                Lampa.Account.logoff({email:"vip@gmail.com"})
               }
               stopAuthInterval();
             }
