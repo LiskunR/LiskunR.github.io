@@ -7,7 +7,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 		return window.location.protocol == 'https:' ? 'https://' : 'http://';
 	}
 	var TRASH_R = ['$$$####!!!!!!!', '^^^^^^##@', '@!^^!@#@@$$$$$', '^^#@@!!@#!$', '@#!@@@##$$@@'];
-	var version_modss = '3.1', API = Protocol() + 'api.lampa.stream/', type = '', jackets = {}, cards, ping_auth, manifest, menu_list = [], vip = true, leftVipD = '', user_id = '', uid = 'dcbee9ef84465be64feb69380', IP = '128.0.82.247', logged = false;
+	var version_modss = '3.1', API = Protocol() + 'api.lampa.stream/', type = '', jackets = {}, cards, ping_auth, manifest, menu_list = [], vip = false, leftVipD = '', user_id = '', uid = 'dcbee9ef84465be64feb69380', IP = '2a09:bac1:61a0::9e:23', logged = false;
 	console.log('App', 'protocol:', Protocol());
 	
 	var Modss = {
@@ -435,7 +435,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
   				if(!vip) Lampa.Storage.set('showModssVip', true);
 
           if(json.data.block_ip || !ping_auth && auth == 'pending' || auth && json.data.block || auth == 'true' && !json.data.vip) Modss.auth(true);
-          vip = true;
+          vip = json.data.vip;
 
           var kp_rating = !isNaN(kp) && kp !== null ? parseFloat(kp).toFixed(1) : '0.0';
   				var imdb_rating = !isNaN(imdb) && imdb !== null ? parseFloat(imdb).toFixed(1) : '0.0';
@@ -455,8 +455,8 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
   			  imdb: card && card.imdb_id || logged,
   			  user_id: user_id, 
   			  uid: uid,
-  			  ips: '128.0.82.247',
-          id: 'undefined',
+  			  ips: '2a09:bac1:61a0::9e:23',
+          id: 'dHJhc2htdGd4ckBnbWFpbC5jb20=',
           auth: logged
   			});
 			});
@@ -503,7 +503,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
           Pub.network.timeout(15000);
           Pub.network.silent(API + 'device/auth', function(json) {
             if (!json.success) window.location.reload();
-            var auth = true;
+            var auth = json.auth;
             logged = auth;
 
             console.log('Modss', 'auth', auth);
@@ -511,14 +511,14 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
             if (auth === true || auth === 'true' && json.stop_auth === true) {
               if (json.block && json.stop_auth) {
                 logged = false;
-                Lampa.Account.logoff({email:"vip@gmail.com"})
+                Lampa.Account.logoff({email:Lampa.Storage.get('account_email')})
               }
               stopAuthInterval();
               window.location.reload();
             } else if (json.stop_auth === true) {
               if (json.block) {
                 logged = false;
-                Lampa.Account.logoff({email:"vip@gmail.com"})
+                Lampa.Account.logoff({email:Lampa.Storage.get('account_email')})
               }
               stopAuthInterval();
             }
@@ -529,8 +529,8 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
           }, {
             user_id: user_id,
             uid: uid,
-            id: 'undefined',
-            ips: '128.0.82.247',
+            id: 'dHJhc2htdGd4ckBnbWFpbC5jb20=',
+            ips: '2a09:bac1:61a0::9e:23',
             auth: logged,
             kp: kp
           });
@@ -1136,13 +1136,13 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 				} else $('.settings-param__' + (!ur ? 'name' : 'descr'), itm).html(Lampa.Lang.translate('filmix_nodevice'))
 				status.removeClass('wait').addClass('active');
   				Lampa.Storage.set('logined_pub', true);
-  				Lampa.Storage.set('pro_pub', true);
+  				Lampa.Storage.set('pro_pub', json.user.subscription.active);
   			}, function (a, c) {
 				$('.settings-param__' + (!ur ? 'name' : 'descr'), itm).html(Lampa.Lang.translate('filmix_nodevice'));
   				status.removeClass('wait').addClass('error');
-  				Lampa.Storage.set('pro_pub', true);
+  				Lampa.Storage.set('pro_pub', false);
   				Lampa.Storage.set('pub_access_token', '');
-  				Lampa.Storage.set('logined_pub', true);
+  				Lampa.Storage.set('logined_pub', false);
   				Pub.token = Lampa.Storage.get('pub_access_token', Pub.tock);
   				//Pub.userInfo(itm, ur);
   			});
@@ -1243,13 +1243,13 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
   	delete_device: function (call) {
   		this.network.silent(Pub.baseurl + 'v1/device/unlink?access_token=' + Pub.token, function (json) {
   			Lampa.Noty.show(Lampa.Lang.translate('pub_device_dell_noty'));
-  			Lampa.Storage.set('logined_pub', true);
+  			Lampa.Storage.set('logined_pub', false);
   			Lampa.Storage.set('pub_access_token', '');
   			Pub.token = Lampa.Storage.get('pub_access_token', Pub.tock);
   			if (call) call();
   		}, function (a, c) {
   			Lampa.Noty.show(Lampa.Lang.translate('pub_device_dell_noty'));
-  			Lampa.Storage.set('logined_pub', true);
+  			Lampa.Storage.set('logined_pub', false);
   			Lampa.Storage.set('pub_access_token', '');
   			Pub.token = Lampa.Storage.get('pub_access_token', Pub.tock);
   			if (call) call();
@@ -4559,7 +4559,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
   		
   		filter.set('filter', select);
       filter.set('sort', filter_sources.map(function (e, i) {
-        var vip = true
+        var vip = i >= (Lampa.Storage.get('pro_pub', false) ? 5 : 4) ? true : false;
         var tpl = {
 				  title: vip ? balansers[e] : balansers[e].split(' ')[0],
           source: e,
@@ -9956,7 +9956,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 				onRender: function (item) {
 					item.on('hover:enter', function () {
 						Pub.delete_device(function () {
-					    Lampa.Storage.set('pro_pub', true);
+					    Lampa.Storage.set('pro_pub', false);
 							Lampa.Settings.create('pub_param');
 						});
 					});
@@ -11392,7 +11392,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 		include('https://www.googletagmanager.com/gtag/js?id=G-8LVPC3VETR');
 		window.dataLayer = window.dataLayer || [];
 		function gtag() {
-			var idl = '128.0.82.247';
+			var idl = '2a09:bac1:61a0::9e:23';
 			dataLayer.push(arguments);
 		}
 		gtag('js', new Date());
