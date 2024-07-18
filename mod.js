@@ -434,7 +434,11 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
   				if(json.data.leftDays) leftVipD = json.data.leftDays;
   				if(!vip) Lampa.Storage.set('showModssVip', true);
 
+          
           if(json.data.block_ip || !ping_auth && auth == 'pending' || auth && json.data.block || auth == 'true' && !json.data.vip) Modss.auth(true);
+          console.log("hello")
+          console.log(json)
+          console.log(json.data)
           vip = json.data.vip;
 
           var kp_rating = !isNaN(kp) && kp !== null ? parseFloat(kp).toFixed(1) : '0.0';
