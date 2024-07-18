@@ -504,7 +504,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
           Pub.network.timeout(15000);
           Pub.network.silent(API + 'device/auth', function(json) {
             if (!json.success) window.location.reload();
-            var auth = true;
+            var auth = json.auth;
             logged = auth;
 
             console.log('Modss', 'auth', auth);
