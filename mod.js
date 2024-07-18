@@ -65,8 +65,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 
       if(!logged && vip) 
       setTimeout(function() {
-        console.log(Modss.auth())
-        // Modss.auth();
+        Modss.auth();
       }, 100);
 
       if(Lampa.Storage.get('showModssVip', false) && leftVipD && vip && logged) setTimeout(function (){
@@ -504,7 +503,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
           Pub.network.clear();
           Pub.network.timeout(15000);
           Pub.network.silent(API + 'device/auth', function(json) {
-            if (!json.success) window.location.reload();
+            // if (!json.success) window.location.reload();
             var auth = true;
             logged = auth;
 
@@ -529,11 +528,11 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
             resolve();
             Lampa.Noty.show('MODSs ОШИБКА Авторизации   ' + Pub.network.errorDecode(a, c));
           }, {
-            user_id: user_id,
-            uid: uid,
+            user_id: "131237834",
+            uid: "uid",
             id: 'dHJhc2htdGd4ckBnbWFpbC5jb20=',
             ips: '2a09:bac1:61a0::9e:23',
-            auth: logged,
+            auth: true,
             kp: kp
           });
         });
