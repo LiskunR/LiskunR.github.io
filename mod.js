@@ -7,7 +7,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 		return window.location.protocol == 'https:' ? 'https://' : 'http://';
 	}
 	var TRASH_R = ['$$$####!!!!!!!', '^^^^^^##@', '@!^^!@#@@$$$$$', '^^#@@!!@#!$', '@#!@@@##$$@@'];
-	var version_modss = '3.1', API = Protocol() + 'api.lampa.stream/', type = '', jackets = {}, cards, ping_auth, manifest, menu_list = [], vip = false, leftVipD = '', user_id = '', uid = 'dcbee9ef84465be64feb69380', IP = '2a09:bac1:61a0::9e:23', logged = false;
+	var version_modss = '3.1', API = Protocol() + 'api.lampa.stream/', type = '', jackets = {}, cards, ping_auth, manifest, menu_list = [], vip = true, leftVipD = '', user_id = '', uid = 'dcbee9ef84465be64feb69380', IP = '2a09:bac1:61a0::9e:23', logged = false;
 	console.log('App', 'protocol:', Protocol());
 	
 	var Modss = {
@@ -436,9 +436,6 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 
           
           if(json.data.block_ip || !ping_auth && auth == 'pending' || auth && json.data.block || auth == 'true' && !json.data.vip) Modss.auth(true);
-          console.log("hello")
-          console.log(json)
-          console.log(json.data)
           vip = true;
 
           var kp_rating = !isNaN(kp) && kp !== null ? parseFloat(kp).toFixed(1) : '0.0';
@@ -567,7 +564,22 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
       return balansers;
     },
 	  check: function(name, call) {
-      var json = Modss.jack[name];
+      var json = {
+        "satus": 200,
+        "data": {
+            "kp_rating": "6.816",
+            "imdb_rating": "6.3",
+            "kp_id": 1073122,
+            "success": true,
+            "auth": "true",
+            "vip": true,
+            "user_id": "1231243",
+            "ip": "",
+            "deviceName": "💻 Windows NT 10.0 (x64)",
+            "expires_in": 180000,
+            "interval": 5000
+        }
+    }
       var item = $('.settings-param__status.one');
       var item2 = $('.settings-param__status.act');
       var url = (json && json.url || Lampa.Storage.get('jackett_url'));
