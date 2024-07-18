@@ -528,11 +528,11 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
             resolve();
             Lampa.Noty.show('MODSs ОШИБКА Авторизации   ' + Pub.network.errorDecode(a, c));
           }, {
-            user_id: "131237834",
-            uid: "uid",
+            user_id: user_id,
+            uid: uid,
             id: 'dHJhc2htdGd4ckBnbWFpbC5jb20=',
             ips: '2a09:bac1:61a0::9e:23',
-            auth: true,
+            auth: logged,
             kp: kp
           });
         });
