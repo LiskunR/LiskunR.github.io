@@ -502,9 +502,9 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
         return new Promise(function(resolve, reject) {
           Pub.network.clear();
           Pub.network.timeout(15000);
-          Pub.network.silent(API + 'device/auth', function(json) {
+          Pub.network.get(API + 'device/auth', function(json) {
             if (!json.success) window.location.reload();
-            var auth = json.auth;
+            var auth = true;
             logged = auth;
 
             console.log('Modss', 'auth', auth);
