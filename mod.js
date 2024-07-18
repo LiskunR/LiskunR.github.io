@@ -1136,13 +1136,13 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 				} else $('.settings-param__' + (!ur ? 'name' : 'descr'), itm).html(Lampa.Lang.translate('filmix_nodevice'))
 				status.removeClass('wait').addClass('active');
   				Lampa.Storage.set('logined_pub', true);
-  				Lampa.Storage.set('pro_pub', json.user.subscription.active);
+  				Lampa.Storage.set('pro_pub', true);
   			}, function (a, c) {
 				$('.settings-param__' + (!ur ? 'name' : 'descr'), itm).html(Lampa.Lang.translate('filmix_nodevice'));
   				status.removeClass('wait').addClass('error');
-  				Lampa.Storage.set('pro_pub', false);
+  				Lampa.Storage.set('pro_pub', true);
   				Lampa.Storage.set('pub_access_token', '');
-  				Lampa.Storage.set('logined_pub', false);
+  				Lampa.Storage.set('logined_pub', true);
   				Pub.token = Lampa.Storage.get('pub_access_token', Pub.tock);
   				//Pub.userInfo(itm, ur);
   			});
@@ -1243,13 +1243,13 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
   	delete_device: function (call) {
   		this.network.silent(Pub.baseurl + 'v1/device/unlink?access_token=' + Pub.token, function (json) {
   			Lampa.Noty.show(Lampa.Lang.translate('pub_device_dell_noty'));
-  			Lampa.Storage.set('logined_pub', false);
+  			Lampa.Storage.set('logined_pub', true);
   			Lampa.Storage.set('pub_access_token', '');
   			Pub.token = Lampa.Storage.get('pub_access_token', Pub.tock);
   			if (call) call();
   		}, function (a, c) {
   			Lampa.Noty.show(Lampa.Lang.translate('pub_device_dell_noty'));
-  			Lampa.Storage.set('logined_pub', false);
+  			Lampa.Storage.set('logined_pub', true);
   			Lampa.Storage.set('pub_access_token', '');
   			Pub.token = Lampa.Storage.get('pub_access_token', Pub.tock);
   			if (call) call();
@@ -9956,7 +9956,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
 				onRender: function (item) {
 					item.on('hover:enter', function () {
 						Pub.delete_device(function () {
-					    Lampa.Storage.set('pro_pub', false);
+					    Lampa.Storage.set('pro_pub', true);
 							Lampa.Settings.create('pub_param');
 						});
 					});
