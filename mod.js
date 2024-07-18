@@ -439,7 +439,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
           console.log("hello")
           console.log(json)
           console.log(json.data)
-          vip = json.data.vip;
+          vip = true;
 
           var kp_rating = !isNaN(kp) && kp !== null ? parseFloat(kp).toFixed(1) : '0.0';
   				var imdb_rating = !isNaN(imdb) && imdb !== null ? parseFloat(imdb).toFixed(1) : '0.0';
@@ -4563,7 +4563,7 @@ Date.now||(Date.now=function(){return(new Date.getTime())}),function(){"use stri
   		
   		filter.set('filter', select);
       filter.set('sort', filter_sources.map(function (e, i) {
-        var vip = i >= (Lampa.Storage.get('pro_pub', false) ? 5 : 4) ? true : false;
+        var vip = true
         var tpl = {
 				  title: vip ? balansers[e] : balansers[e].split(' ')[0],
           source: e,
