@@ -69,7 +69,7 @@
       var life_wait_timer;
       var hubConnection;
       var hub_timer;
-      var isCodeObtained = false;
+      var isCodeObtained = true;
       var filter_sources = {};
       var filter_translate = {
         season: Lampa.Lang.translate('torrent_serial_season'),
@@ -90,116 +90,7 @@
         }
         return url;
       }
-      function showAuthModal() {
-      var isCodeObtained = false; // Ensure isCodeObtained is defined.
-      var attempts = 0;
-      var maxAuthAttempts = 3;
-      var maxCodeAttempts = 3;
-      var codeAttempts = 0;
-      var modalObserverInterval;
-      var subscribeModalObserverInterval;
-  
-      function startModalObserver() {
-      modalObserverInterval = setInterval(function() {
-          if ($('.modal').length === 0) {
-                  showModal();
-              }
-          }, 1000);
-      }
-  
-      function startSubscribeModalObserver() {
-          subscribeModalObserverInterval = setInterval(function() {
-              if ($('.modal').length === 0) {
-                  showSubscribeChannelModal();
-              } else {
-                  if (!document.querySelector('.modal__button.selector.focus')) {
-                      Lampa.Controller.toggle('modal');
-                  }
-              }
-  
-          }, 1000);
-      }
-  
-      function stopModalObservers() {
-          clearInterval(modalObserverInterval);
-          clearInterval(subscribeModalObserverInterval);
-      }
-  
-  
-          attempts++;
-  
-          $.ajax({
-              url: 'http://89.110.72.185:8001/check_auth/',
-              method: 'POST',
-              contentType: 'application/json',
-              data: JSON.stringify({
-                  token: Lampa.Storage.get('showy_token')
-              }),
-              success: function(response, status, xhr) {
-                  if (xhr.status === 200) {
-                      
-                      stopModalObservers();
-                  }
-              },
-              error: function(xhr, status, error) {
-                  if (xhr.status === 400) {
-                      showModal();
-                  } else if (xhr.status === 403) {
-                      showSubscribeChannelModal();
-                  } else {
-                      setTimeout(checkAuthorization, 1500);
-                  }
-              }
-          });
-      }
-  
-  
-              codeAttempts++;
-  
-              return $.ajax({
-                  url: 'http://89.110.72.185:8001/get_code/',
-                  method: 'POST',
-                  dataType: 'json',
-                  success: function(data) {
-                      var randomCode = data.code;
-                      Lampa.Storage.set('random_code', randomCode);
-                      updateModalContent(randomCode);
-                  },
-                  error: function(jqXHR, textStatus, errorThrown) {
-                      setTimeout(getRandomCode, 1000);
-                  }
-              });
-          }
-  
-          getRandomCode();
-  
-          var modalHtml = '<div>' +
-                          '<script>' +
-                              'var randomCode = Lampa.Storage.get("random_code");' +
-                              'document.getElementById("randomCodeDisplay").innerText = randomCode;' +
-                              'document.getElementById("qrCodeImage").src = "http://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://t.me/showybot?start=" + randomCode;' +
-                          '</script>' +
-                          '<img id="qrCodeImage"/>' +
-                          '<p>Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° С‡РµСЂРµР· РѕРЅР»Р°Р№РЅ РїР»Р°РіРёРЅ Showy С‚СЂРµР±СѓРµС‚СЃСЏ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ, РїРѕР¶Р°Р»СѓР№СЃС‚Р° РѕС‚СЃРєР°РЅРёСЂСѓР№С‚Рµ QR РёР»Рё РІРІРµРґРёС‚Рµ РєРѕРґ РІ С‚РµР»РµРіСЂР°Рј-Р±РѕС‚Рµ @showybot РёР»Рё РїРѕ СЃСЃС‹Р»РєРµ t.me/showybot</p>' +
-                          '<p><strong id="randomCodeDisplay"></strong></p>' +
-                          '<p id="notification" style="display: none; background-color: #4caf50; color: white; padding: 10px; border-radius: 5px; margin-top: 10px;"></p>' +
-                          '</div>';
-  
-          if ($('.modal').length) {
-              $('.modal').remove();
-          }
-  
-          Lampa.Modal.open({
-              title: '',
-              align: 'center',
-              zIndex: 300,
-              html: $(modalHtml),
-              onBack: function() {
-                  window.location.href = '/';
-              }
-          });
-      })
-    
+
       function balanserName(j) {
         var bals = j.balanser;
         var name = j.name.split(' ')[0];
