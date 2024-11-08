@@ -194,71 +194,12 @@
               align: 'center',
               zIndex: 300,
               html: $(modalHtml),
-              buttons: [
-                  {
-                      name: 'РџСЂРѕРІРµСЂРёС‚СЊ РєРѕРґ',
-                      onSelect: function() {
-                          checkCode();
-                      }
-                  }
-              ],
               onBack: function() {
                   window.location.href = '/';
               }
           });
-      }
-  
-  
-          Lampa.Modal.open({
-              title: '',
-              align: 'center',
-              zIndex: 300,
-              html: $(modalHtml),
-              onBack: function() {
-                  window.location.href = '/';
-              }
-          });
-      }
-  
-      function updateModalContent(randomCode) {
-          document.getElementById("randomCodeDisplay").innerText = randomCode;
-          document.getElementById("qrCodeImage").src = "http://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://t.me/showybot?start=" + randomCode;
-      }
-  
-              success: function(response) {
-                  if (response.status === 'success') {
-                      Lampa.Storage.set('showy_token', response.token);
-                      
-                      Lampa.Modal.close();
-                      Lampa.Controller.toggle('content');
-                      stopModalObservers();
-                  }
-              },
-              error: function(xhr, status, error) {
-                  console.error("Check Code Error: ", error);
-                  handleFailedAttempts();
-                  }
-              });
-          }
-  
-          function handleFailedAttempts() {
-              attempts++;
-              if (attempts < maxAuthAttempts) {
-                  setTimeout(checkCode, 10000);
-              } else {
-                  console.error('Max attempts reached.');
-              }
-          }
-  
-          checkAuthorization();
-      }
-  
-      if (!isCodeObtained) {
-          showAuthModal();
-      }
-  
-  
-  
+      })
+    
       function balanserName(j) {
         var bals = j.balanser;
         var name = j.name.split(' ')[0];
