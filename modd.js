@@ -694,7 +694,7 @@
           var name = elem.title || elem.text;
           elem.title = name;
           elem.time = elem.time || '';
-          elem.info = info.join('<span class="online-prestige-split">в—Џ</span>');
+          elem.info = info.join('<span class="online-prestige-split">●</span>');
           var item = Lampa.Template.get('lampac_prestige_folder', elem);
           item.on('hover:enter', function() {
             _this6.reset();
